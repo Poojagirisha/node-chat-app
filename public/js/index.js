@@ -6,11 +6,11 @@ var socket=io();
     //     to:'jen@example.com',
     //     text:'hey this is pooja'
     // });
-    socket.emit('createMessage',{
-        from:'pooja',
-        text:'hey this is pooja'
-    });
-});
+//     socket.emit('createMessage',{
+//         from:'pooja',
+//         text:'hey this is pooja'
+//     });
+ });
 
 
         socket.on('disconnect',()=>{

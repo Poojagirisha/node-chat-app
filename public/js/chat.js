@@ -1,5 +1,22 @@
 var socket=io();
 
+function scrollToBottom (){
+ var messages=jQuery('#messages');
+var newMessage=messages.children('li:last-child')
+
+ var clientHeight=messages.prop('clienHeight');
+ var scrollTop=messages.prop('scrollTop');
+ var scrollHeight=messages.prop('scrollHeight');
+var newMessageHeight=newMessage.innerHeight();
+var lastMessageHeight=newMessage.prev().innnerHeight();
+
+
+ if(clientHeight+scrollTop+newMessageHeight+lastMessageHeight >= scrollHeight){
+     //console.log('should scroll');
+     message.scrollTop(scrollHeight);
+ }
+}
+
  socket.on('connect',function(){
     console.log('connected to server'); 
     // socket.emit('createEmail',{
@@ -32,6 +49,7 @@ var socket=io();
         });
 
         jQuery('#messages').append(html);
+        scrollToBottom();
         //console.log('newMessage',message);
         // var formattedTime=moment(message.createdAt).format('h:mm a');
         // var li =jQuery('<li></li>');
@@ -52,6 +70,7 @@ var socket=io();
         });
 
         jQuery('#messages').append(html);
+        scrollToBottom();
 
         // var a=jQuery('<a target="_blank"> my current location</a>');
         // li.text(`${message.from} ${formattedTime}:`);

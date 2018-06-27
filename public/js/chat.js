@@ -113,7 +113,6 @@ socket.on('updateUserList',function(users){
         var messageTextbox=jQuery('[name=message]');
 
         socket.emit('createMessage',{
-            from:'User',
             text:messageTextbox.val()
         },function(){
             messageTextbox.val('')

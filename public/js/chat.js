@@ -8,7 +8,7 @@ var newMessage=messages.children('li:last-child')
  var scrollTop=messages.prop('scrollTop');
  var scrollHeight=messages.prop('scrollHeight');
 var newMessageHeight=newMessage.innerHeight();
-var lastMessageHeight=newMessage.prev().innnerHeight();
+var lastMessageHeight=newMessage.prev().innerHeight();
 
 
  if(clientHeight+scrollTop+newMessageHeight+lastMessageHeight >= scrollHeight){
@@ -17,8 +17,19 @@ var lastMessageHeight=newMessage.prev().innnerHeight();
  }
 }
 
+
+
  socket.on('connect',function(){
-    console.log('connected to server'); 
+    //console.log('connected to server'); 
+    var params=jQuery.deparam(window.location.search);
+    socket.emit('join',params,function(err){
+        if(err){
+            alert(err);
+            window.location.href='/';
+        }else{
+            console.log('no error');
+        }
+    });
     // socket.emit('createEmail',{
     //     to:'jen@example.com',
     //     text:'hey this is pooja'
@@ -37,6 +48,16 @@ var lastMessageHeight=newMessage.prev().innnerHeight();
     // socket.on('newEmail',function(email){
     //     console.log('New Email',email);
     // });
+
+socket.on('updateUserList',function(users){
+    var ol=jQuery('<ol></ol>');
+
+    users.forEach(function(user){
+        ol.append(jQuery('<li></li>').text(user));
+    });
+    jQuery('#users').html(ol);
+});
+
 
     socket.on('newMessage',function(message){
         var formattedTime=moment(message.createdAt).format('h:mm a');
